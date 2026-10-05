@@ -31,4 +31,40 @@ public class MediaItem {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private ReadingStatus status = ReadingStatus.PLANNED;
+
+
+    @Column(name = "cover_url", length = 1000)
+    private String coverUrl;
+
+    
+    @Column(length = 10000)
+    private String description;
+
+    @Column(name = "external_source", length = 30)
+    private String externalSource;
+
+        @Column(name = "external_id", length = 100)
+    private String externalId;
+
+    @Column(name = "total_units")
+    private Integer totalUnits;
+
+    @Column(nullable = false)
+    private Integer progress = 0;
+
+        private Integer rating;
+
+    @Column(length = 2000)
+    private String notes;
+
+
+    
+        @Column(name = "added_at", nullable = false)
+         private Instant addedAt = Instant.now();
+
+
+        @Column(name = "updated_at", nullable = false)
+        private Instant updatedAt = Instant.now();
+
 }
+
