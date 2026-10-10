@@ -14,7 +14,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/items
 
 
-# Creating a post request with no title
+# Creating an item with no title
 POST http://localhost:8080/api/items
 Content-Type: application/json
 
