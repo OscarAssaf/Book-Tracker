@@ -10,20 +10,24 @@ import org.springframework.web.client.RestClient;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.reactive.function.client.WebClient;
+
 @Component
 public class GoogleBooksProvider implements MediaSearchProvider {
 
     static final String SOURCE = "GOOGLE_BOOKS";
 
-    private final RestClient client;
+    private final WebClient client;
     private final String apiKey;
 
-    public GoogleBooksProvider(RestClient.Builder builder,
+    public GoogleBooksProvider(WebClient.Builder builder,
                                @Value("${app.google-books.base-url}") String baseUrl,
                                @Value("${app.google-books.api-key:}") String apiKey) {
         this.client = builder.baseUrl(baseUrl).build();
         this.apiKey = apiKey;
     }
+
+
 
     @Override
     public boolean supports(MediaType type) {
@@ -31,20 +35,23 @@ public class GoogleBooksProvider implements MediaSearchProvider {
     }
 
     @Override
-    public List<SearchResult> search(String query, MediaType type) {
-        JsonNode root = client.get()
-                .uri(uri -> {
-                    var b = uri.path("/volumes")
-                            .queryParam("q", query)
-                            .queryParam("maxResults", 20)
-                            .queryParam("printType", "books");
-                    if (!apiKey.isBlank()) {
-                        b.queryParam("key", apiKey);
-                    }
-                    return b.build();
-                })
-                .retrieve()
-                .body(JsonNode.class);
+public List<SearchResult> search(String query, MediaType type) {
+    JsonNode root = client.get()
+            .uri(uri -> {
+                var b = uri.path("/volumes")
+                        .queryParam("q", query)
+                        .queryParam("maxResults", 20)
+                        .queryParam("printType", "books");
+                if (!apiKey.isBlank()) {
+                    b.queryParam("key", apiKey);
+                }
+                return b.build();
+            })
+            .retrieve()
+            .bodyToMono(JsonNode.class)
+            .block();
+
+   
 
         List<SearchResult> results = new ArrayList<>();
         if (root == null) return results;
