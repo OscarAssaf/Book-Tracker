@@ -5,6 +5,7 @@ import com.example.booktracker.domain.MediaType;
 import com.example.booktracker.domain.ReadingStatus;
 import com.example.booktracker.dto.MediaItemRequest;
 import com.example.booktracker.dto.MediaItemResponse;
+import com.example.booktracker.exception.ConflictException;
 import com.example.booktracker.repository.MediaItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +34,16 @@ public class MediaItemService {
     }
 
     public MediaItemResponse create(MediaItemRequest request) {
-        MediaItem item = new MediaItem();
-        apply(item, request);
-        return MediaItemResponse.from(repository.save(item));
+    if (request.externalSource() != null && request.externalId() != null
+         && repository.existsByExternalSourceAndExternalId(request.externalSource(), request.externalId())) {
+     throw new ConflictException("This item is already in your library");
     }
+
+    MediaItem item = new MediaItem();
+    apply(item, request);
+    return MediaItemResponse.from(repository.save(item));
+    }
+
 
     public MediaItemResponse update(Long id, MediaItemRequest request) {
         MediaItem item = find(id);
@@ -49,9 +56,9 @@ public class MediaItemService {
     }
 
     private MediaItem find(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Item " + id + " not found"));
-    }
+    return repository.findById(id)
+            .orElseThrow(() -> new NotFoundException("Item " + id + " not found"));
+        }
 
     private void apply(MediaItem item, MediaItemRequest r) {
         item.setTitle(r.title());
