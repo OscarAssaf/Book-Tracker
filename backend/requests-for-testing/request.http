@@ -12,3 +12,28 @@ Content-Type: application/json
 
 
 GET http://localhost:8080/api/items
+
+
+# Creating a post request with no title
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "type": "BOOK",
+  "status": "PLANNED"
+}
+
+# Trying to fetch a non existing item, should return 404 with an error code.
+GET http://localhost:8080/api/items/999
+
+# Create an item with ID, then recreate it and then make sure that it doesn't pass.
+POST http://localhost:8080/api/items
+Content-Type: application/json
+
+{
+  "title": "The Hobbit",
+  "type": "BOOK",
+  "status": "PLANNED",
+  "externalSource": "GOOGLE_BOOKS",
+  "externalId": "abc123"
+}

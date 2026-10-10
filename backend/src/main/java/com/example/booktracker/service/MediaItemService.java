@@ -10,6 +10,8 @@ import com.example.booktracker.repository.MediaItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.booktracker.exception.NotFoundException;
+
 import java.time.Instant;
 import java.util.List;
 
