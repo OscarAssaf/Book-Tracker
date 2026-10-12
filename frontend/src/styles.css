@@ -1,3 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg: #f5f6fa;
+  --card: #ffffff;
+  --text: #1d2433;
+  --muted: #6b7280;
+  --accent: #4f46e5;
+  --danger: #dc2626;
+}
 
-@import 'tailwindcss';
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1e1b4b;
+  color: #fff;
+}
+.topbar .brand { font-weight: 600; font-size: 1.1rem; }
+.topbar nav a {
+  color: #c7d2fe;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  padding-bottom: 4px;
+}
+.topbar nav a.active { color: #fff; font-weight: 600; border-bottom: 2px solid #fff; }
+
+main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+
+.toolbar, .search { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+input, select, button {
+  font: inherit;
+  padding: .5rem .75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+input[name="q"] { flex: 1; min-width: 240px; }
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: .5rem 1rem;
+}
+button:hover { opacity: .9; }
+button:disabled { opacity: .5; cursor: default; }
+button.danger { background: var(--danger); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+  display: flex;
+  flex-direction: column;
+}
+.card img { width: 100%; height: 300px; object-fit: cover; background: #e5e7eb; }
+
+.body { padding: 1rem; display: flex; flex-direction: column; gap: .6rem; }
+.body h3 { margin: 0; font-size: 1.05rem; }
+.body label {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  font-size: .85rem;
+  color: var(--muted);
+}
+.body span { display: flex; align-items: center; gap: .5rem; }
+.body input[type="number"] { width: 60px; }
+.meta { margin: 0; color: var(--muted); font-size: .85rem; }
+.desc {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.error { color: var(--danger); margin: 1rem 0; }
+.message { color: var(--accent); margin: 1rem 0; }
+.empty { color: var(--muted); text-align: center; padding: 2rem; }
