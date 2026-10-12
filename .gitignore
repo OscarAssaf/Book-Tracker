@@ -44,4 +44,4 @@ __screenshots__/
 Thumbs.db
 
 frontend/.angular/
-frontend/.angular/cache/
+frontend/.node_modules
