@@ -1,0 +1,2 @@
+# Search for anime
+GET http://localhost:8080/api/search?q=naruto&type=ANIME

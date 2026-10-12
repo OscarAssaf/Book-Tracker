@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:h2:file:./data/booktracker;AUTO_SERVER=TRUE
     username: sa
-    password: 
+    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,3 +17,5 @@ app:
   google-books:
     base-url: https://www.googleapis.com/books/v1
     api-key: ${GOOGLE_BOOKS_API_KEY:}
+  anilist:
+    base-url: https://graphql.anilist.co

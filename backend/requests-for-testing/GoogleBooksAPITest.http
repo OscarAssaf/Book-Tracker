@@ -1,0 +1,5 @@
+ # Search for a specific book
+GET http://localhost:8080/api/search?q=the+hobbit
+
+# Search and filter based on the book test.
+GET http://localhost:8080/api/search?q=harry+potter&type=BOOK
